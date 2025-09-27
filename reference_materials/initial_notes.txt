@@ -1,0 +1,319 @@
+#include<stdio.h>
+#define INF 2e9 
+#define N 16
+typedef struct Spos {
+	int row;
+	int col;
+}Spos;
+typedef struct Sdirect {
+	int x;
+	int y;
+}Sdirect;
+int g_board[N][N];
+Spos g_turnReason[N][N];
+int ValueTable[16][16];
+void Move(Spos pos,int side);
+void UndoMove(Spos pos,int side);
+int IfValid(Spos pos,int side);
+void CreateTable();
+int Evaluate(int side);
+int AbSearch(int alpha,int beta,int side);
+Spos FindBestMove(int depth,int side);
+int Mobility(int side);
+int main() {
+	int mine,oppo;
+	int i,j,flag;
+	char command[6];
+	Spos pos;
+	freopen("Text.txt","r",stdin);
+	scanf("%s %d",command,&mine);
+	oppo = (mine == 1 ? 2 : 1);
+	g_board[N/2 - 1][N/2 - 1] = 2;
+	g_board[N/2][N/2] = 2;
+	g_board[N/2 - 1][N/2] = 1;
+	g_board[N/2][N/2 - 1] = 1;
+	printf("OK\n");
+	//does scanf clear old array?
+	while(scanf("%s",command) == 1) {
+		if('P' == command[0]) {
+			scanf("%d %d",&pos.row,&pos.col);
+			Move(pos,oppo);
+		} else if('T' == command[0]) {
+			pos = FindBestMove(5,mine);
+			Move(pos,mine);
+		}
+	}
+	/*
+	for(i = 0; i < N; i++) {
+        flag = 0;
+        for(j = 0; j < N; j++) {
+            if(flag++) printf(" ");
+            printf("%d",g_board[i][j]);
+        }
+        printf("\n");
+    }
+	*/
+    return 0;
+}
+
+//maybe board[row+x][col+y],and change x,y to decrease the loops
+void Move(Spos pos,int side) {
+	int i,j,row,col;
+	row = pos.row;
+	col = pos.col;
+	g_board[row][col] = side;
+	//if not,many point reason is(0,0),for move(0,0) can be a bug
+	for(i = 0; i < N; i++) {
+		for(j = 0; j < N; j++) {
+			g_turnReason[i][j].row = -1;
+			g_turnReason[i][j].col = -1;
+		}
+	}
+	for(i = 1; row - i >= 0 && g_board[row - i][col] != side && g_board[row - i][col] != 0; i++);
+	if(row - i >= 0 && g_board[row - i][col] == side) {
+		//--i set itself reason
+		while(--i) {
+			g_board[row - i][col] = side;
+			g_turnReason[row - i][col] = pos;
+		}
+	}
+	for(i = 1; row + i <= N - 1 && g_board[row + i][col] != side && g_board[row + i][col] != 0; i++);
+	if(row + i <= N - 1 && g_board[row + i][col] == side) {
+		while(--i) {
+			g_board[row + i][col] = side;
+			g_turnReason[row + i][col] = pos;
+		}
+	}
+	//horturn
+	for(i = 1; col - i >= 0 && g_board[row][col - i] != side && g_board[row][col - i] != 0; i++);
+	if( col - i >= 0 &&g_board[row][col - i] == side) {
+		while(--i) {
+			g_board[row][col - i] = side;
+			g_turnReason[row][col - i] = pos;
+		}
+	}
+	for(i = 1; col + i <= N-1 && g_board[row][col + i] != side && g_board[row][col + i] != 0; i++);
+	if(col + i <= N-1 && g_board[row][col + i] == side) {
+		while(--i) {
+			g_board[row][col + i] = side;
+			g_turnReason[row][col + i] = pos;
+		}
+	}
+	//lsturn
+	for(i = 1; row - i >= 0 && col - i >= 0 && g_board[row - i][col - i] != side && g_board[row - i][col - i] != 0; i++);
+	if(row - i >= 0 && col - i >= 0 && g_board[row - i][col - i] == side) {
+		while(--i) {
+			g_board[row - i][col - i] = side;
+			g_turnReason[row - i][col - i] = pos;
+		}
+	}
+	for(i = 1; row + i <= N-1 && col + i <= N-1 && g_board[row + i][col + i] != side && g_board[row + i][col + i] != 0; i++);
+	if(row + i <= N-1 && col + i <= N-1 && g_board[row + i][col + i] == side) {
+		while(--i) {
+			g_board[row + i][col + i] = side;
+			g_turnReason[row + i][col + i] = pos;
+		}
+	}
+	//rsturn
+	for(i = 1; row - i >= 0 && col + i <= N-1 && g_board[row - i][col + i] != side && g_board[row - i][col + i] != 0; i++);
+	if(row - i >= 0 && col + i <= N-1 && g_board[row - i][col + i] == side) {
+		while(--i) {
+			g_board[row - i][col + i] = side;
+			g_turnReason[row - i][col + i] = pos;
+		}
+	}
+	for(i = 1; row + i <= N-1 && col - i >= 0 && g_board[row + i][col - i] != side && g_board[row + i][col - i] != 0; i++);
+	if(row + i <= N-1 && col - i >= 0 && g_board[row + i][col - i] == side) {
+		while(--i) {
+			g_board[row + i][col - i] = side;
+			g_turnReason[row + i][col - i] = pos;
+		}
+	}
+}
+//learn from eight queens,and in fact dir.i*(n++),dir.j*(n++) is also good
+void UndoMove(Spos pos,int side) {
+	Sdirect direct[8] = {{1,1},{1,0},{1,-1},{0,1},{0,-1},{-1,1},{-1,0},{-1,-1}};
+	int i,nRow,nCol,another;
+	another = (side == 1 ? 2 : 1);
+	for(i = 0; i < 8; i++) {
+		nRow = pos.row + direct[i].x ;
+		nCol = pos.col + direct[i].y;
+		//Does turnReason need reset? 
+		while(nRow >= 0 && nRow <= N-1 && nCol >= 0 && nCol <= N-1 &&
+			g_turnReason[nRow][nCol].row == pos.row && g_turnReason[nRow][nCol].col == pos.col) {
+				g_board[nRow][nCol] = another;
+				nRow += direct[i].x;
+				nCol += direct[i].y;
+				g_turnReason[nRow][nCol].row = -1;
+				g_turnReason[nRow][nCol].col = -1;
+		}
+	}
+	g_board[pos.row][pos.col] = 0;
+	g_turnReason[pos.row][pos.col].row = -1;
+	g_turnReason[pos.row][pos.col].col = -1;
+}
+
+int IfValid(Spos pos,int side) {
+	Sdirect direct[8] = {{1,1},{1,0},{1,-1},{0,1},{0,-1},{-1,1},{-1,0},{-1,-1}};
+	int i,nRow,nCol,another,flag;
+	if(g_board[pos.row][pos.col] != 0) {
+		return 0;
+	}
+	another = (side == 1 ? 2 : 1);
+	for(i = 0; i < 8; i++) {
+		nRow = pos.row + direct[i].x;
+		nCol = pos.col + direct[i].y;
+		//Does turnReason need reset? 
+		flag = 0;
+		while(nRow >= 0 && nRow <= N-1 && nCol >= 0 && nCol <= N-1 &&
+			g_board[nRow][nCol] == another ){
+				nRow += direct[i].x;
+				nCol += direct[i].y;
+				//To avoid all  point near is the oppo side,not go into the loop
+				flag = 1;
+		}
+		if(flag && nRow >= 0 && nRow <= N-1 && nCol >= 0 && nCol <= N-1 &&
+			g_board[nRow][nCol] == side) {
+				return 1;
+		}
+	}
+	return 0;		
+}
+void CreateTable() {
+	Spos pos;
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		for(pos.col = 2; pos.col <= N-3; pos.col++) {
+			ValueTable[pos.row][pos.col] = 1;
+		}
+	}
+	ValueTable[0][0] = 90;
+	ValueTable[0][N-1] = 90;
+	ValueTable[N-1][0] = 90;
+	ValueTable[N-1][N-1] = 90;
+	ValueTable[0][1] = -60;
+	ValueTable[1][0] = -60;
+	ValueTable[0][N-2] = -60;
+	ValueTable[1][N-1] = -60;
+	ValueTable[N-2][0] = -60;
+	ValueTable[N-1][1] = -60;
+	ValueTable[N-1][N-2] = -60;
+	ValueTable[N-2][N-1] = -60;
+	ValueTable[1][1] = -80;
+	ValueTable[1][N-2] = -80;
+	ValueTable[N-2][1] = -80;
+	ValueTable[N-2][N-2] = -80;
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		ValueTable[pos.row][1] = 5;
+	}
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		ValueTable[pos.row][N-2] = 5;
+	}
+	for(pos.col = 2; pos.col <= N-3; pos.col++) {
+		ValueTable[1][pos.col] = 5;
+	}
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		ValueTable[N-2][pos.col] = 5;
+	}
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		ValueTable[pos.row][0] = 10;
+	}
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		ValueTable[pos.row][N-1] = 10;
+	}
+	for(pos.col = 2; pos.col <= N-3; pos.col++) {
+		ValueTable[0][pos.col] = 10;
+	}
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		ValueTable[N-1][pos.col] = 10;
+	}
+}
+int ValueWeight(Spos pos,int side) {
+	if(g_board[pos.row][pos.col] == side) {
+		return 1;
+	} else if(g_board[pos.row][pos.col] == 0) {
+		return 0;
+	} else {
+		return -1;
+	}
+}
+
+int Evaluate(int side) {
+	Spos pos;
+	int value;
+	CreateTable();
+	value = Mobility(side);
+	for(pos.row = 0; pos.row <= N-1; pos.row++) {
+		for(pos.col = 0; pos.col <= N-1; pos.col++) {
+			value += ValueTable[pos.row][pos.col] * ValueWeight(pos,side);
+		}
+	}
+	return value;
+}
+int AbSearch(int alpha,int beta,int side) {
+	return Evaluate(side);
+}
+Spos FindBestMove(int depth,int side) {
+	int i,k,value,maxValue;
+	Spos canMove[16 * 16];
+	Spos pos,bestMove;
+	k = 0;
+	for(pos.row = 0; pos.row < N-1; pos.row++) {
+		for(pos.col = 0; pos.col < N-1; pos.col++) {
+			if(IfValid(pos,side)) {
+				canMove[k++] = pos;
+			}
+		}
+	}
+	maxValue = -INF;
+	for(i = 0; i < k; i++) {
+		Move(canMove[i],side);
+		value = AbSearch(-INF,INF,side);
+		UndoMove(canMove[i],side);
+		if(value > maxValue) {
+			maxValue = value;
+			bestMove = canMove[i];
+		}
+	}
+	return bestMove;
+}
+int Mobility(int side) {
+	Spos pos;
+	int mobility;
+	mobility = 0;
+	for(pos.row = 0; pos.row < N-1; pos.row++) {
+		for(pos.col = 0; pos.col < N-1; pos.col++) {
+			if(IfValid(pos,side)) {
+				mobility++;
+			}
+		}
+	}
+}
+/*
+//To debug after every function
+int main() {
+    int n,m,i,j,side,flag;
+	Spos pos;
+    freopen("Text.txt","r",stdin);
+    scanf("%d %d",&n,&m);
+    g_board[n /2][n /2] = 2;
+    g_board[n /2 - 1][n /2 - 1] = 2;
+    g_board[n /2][n /2 - 1] = 1;
+    g_board[n /2 - 1][n /2] = 1;
+    while(m--) {
+        scanf("%d %d %d",&pos.row,&pos.col,&side);
+        g_board[pos.row][pos.col] = side;
+        Move(pos,side);
+    }
+	
+ 
+    for(i = 0; i < n; i++) {
+        flag = 0;
+        for(j = 0; j < n; j++) {
+            if(flag++) printf(" ");
+            printf("%d",g_board[i][j]);
+        }
+        printf("\n");
+    }
+    return 0;
+}
+*/

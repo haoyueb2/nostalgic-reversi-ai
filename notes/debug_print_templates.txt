@@ -1,0 +1,8 @@
+		printf("深度%d 下棋方%d 估值%d\n",depth,side,value);
+	printf("最大估值%d\n",maxValue);
+		printf("Find: 深度%d 下棋方%d 估值%d 候选横%d 候选纵%d\n",DEPTH,side,value,canMove[i].row,canMove[i].col);
+	printf("Best: 最大估%d 最好横%d 最好纵%d\n",maxValue,bestMove.row,bestMove.col);
+value = -2 * Mobility(another) + 200 * Stabilizer(side) + 2 * Mobility(side) - 200 * Stabilizer(another);
+
+
+printf("%d-%d %d\n",g_moveNum,pos.row,pos.col);

@@ -1,0 +1,300 @@
+/*
+//To debug after every function
+int main() {
+    int n,m,i,j,side,flag;
+	Spos pos;
+    freopen("Text.txt","r",stdin);
+    scanf("%d %d",&n,&m);
+    g_board[n /2][n /2] = 2;
+    g_board[n /2 - 1][n /2 - 1] = 2;
+    g_board[n /2][n /2 - 1] = 1;
+    g_board[n /2 - 1][n /2] = 1;
+    while(m--) {
+        scanf("%d %d %d",&pos.row,&pos.col,&side);
+        g_board[pos.row][pos.col] = side;
+        Move(pos,side);
+    }
+	
+ 	int i,flag,j;
+for(i = 0; i < N; i++) {
+        flag = 0;
+        for(j = 0; j < N; j++) {
+            if(flag++) printf(" ");
+            printf("%d",g_board[i][j]);
+        }
+        printf("\n");
+    return 0;
+}
+*/
+
+
+Spos pos;
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		for(pos.col = 2; pos.col <= N-3; pos.col++) {
+			ValueTable[pos.row][pos.col] = 1;
+		}
+	}
+	ValueTable[0][0] = 90;
+	ValueTable[0][N-1] = 90;
+	ValueTable[N-1][0] = 90;
+	ValueTable[N-1][N-1] = 90;
+	ValueTable[0][1] = -60;
+	ValueTable[1][0] = -60;
+	ValueTable[0][N-2] = -60;
+	ValueTable[1][N-1] = -60;
+	ValueTable[N-2][0] = -60;
+	ValueTable[N-1][1] = -60;
+	ValueTable[N-1][N-2] = -60;
+	ValueTable[N-2][N-1] = -60;
+	ValueTable[1][1] = -80;
+	ValueTable[1][N-2] = -80;
+	ValueTable[N-2][1] = -80;
+	ValueTable[N-2][N-2] = -80;
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		ValueTable[pos.row][1] = 5;
+	}
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		ValueTable[pos.row][N-2] = 5;
+	}
+	for(pos.col = 2; pos.col <= N-3; pos.col++) {
+		ValueTable[1][pos.col] = 5;
+	}
+
+
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		for(pos.col = 2; pos.col <= N-3; pos.col++) {
+			ValueTable[pos.row][pos.col] = 1;
+		}
+	}
+	ValueTable[0][0] = 200;
+	ValueTable[0][N-1] = 200;
+	ValueTable[N-1][0] = 200;
+	ValueTable[N-1][N-1] = 200;
+	ValueTable[0][1] = -60;
+	ValueTable[1][0] = -60;
+	ValueTable[0][N-2] = -60;
+	ValueTable[1][N-1] = -60;
+	ValueTable[N-2][0] = -60;
+	ValueTable[N-1][1] = -60;
+	ValueTable[N-1][N-2] = -60;
+	ValueTable[N-2][N-1] = -60;
+	ValueTable[1][1] = -200;
+	ValueTable[1][N-2] = -200;
+	ValueTable[N-2][1] = -200;
+	ValueTable[N-2][N-2] = -200;
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		ValueTable[pos.row][1] = -5;
+	}
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		ValueTable[pos.row][N-2] = -5;
+	}
+	for(pos.col = 2; pos.col <= N-3; pos.col++) {
+		ValueTable[1][pos.col] = -5;
+	}
+	for(pos.col = 2; pos.col <= N-3; pos.col++) {
+		ValueTable[N-2][pos.col] = -5;
+	}
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		ValueTable[pos.row][0] = 10;
+	}
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		ValueTable[pos.row][N-1] = 10;
+	}
+	for(pos.col = 2; pos.col <= N-3; pos.col++) {
+		ValueTable[0][pos.col] = 10;
+	}
+	for(pos.col = 2; pos.col <= N-3; pos.col++) {
+		ValueTable[N-1][pos.col] = 10;
+	}
+
+for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		for(pos.col = 2; pos.col <= N-3; pos.col++) {
+			if(pos.col <= 7) {
+				ValueTable[pos.row][pos.col] = k--;
+			} else {
+				ValueTable[pos.row][pos.col] = ++k;
+			}
+		}
+		if(pos.row <= 7) {
+			ValueTable[pos.row][pos.col] = k--;
+		} else {
+			ValueTable[pos.row][pos.col] = ++k;
+		}
+	}
+
+赢了30个人的
+Spos pos;
+	int k;
+	k = 11;
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		for(pos.col = 2; pos.col <= N-3; pos.col++) {
+			ValueTable[pos.row][pos.col] = 1;
+		}
+	}
+	ValueTable[0][0] = 200;
+	ValueTable[0][N-1] = 200;
+	ValueTable[N-1][0] = 200;
+	ValueTable[N-1][N-1] = 200;
+	ValueTable[0][1] = -60;
+	ValueTable[1][0] = -60;
+	ValueTable[0][N-2] = -60;
+	ValueTable[1][N-1] = -60;
+	ValueTable[N-2][0] = -60;
+	ValueTable[N-1][1] = -60;
+	ValueTable[N-1][N-2] = -60;
+	ValueTable[N-2][N-1] = -60;
+	ValueTable[1][1] = -200;
+	ValueTable[1][N-2] = -200;
+	ValueTable[N-2][1] = -200;
+	ValueTable[N-2][N-2] = -200;
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		ValueTable[pos.row][1] = -5;
+	}
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		ValueTable[pos.row][N-2] = -5;
+	}
+	for(pos.col = 2; pos.col <= N-3; pos.col++) {
+		ValueTable[1][pos.col] = -5;
+	}
+	for(pos.col = 2; pos.col <= N-3; pos.col++) {
+		ValueTable[N-2][pos.col] = -5;
+	}
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		ValueTable[pos.row][0] = 10;
+	}
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		ValueTable[pos.row][N-1] = 10;
+	}
+	for(pos.col = 2; pos.col <= N-3; pos.col++) {
+		ValueTable[0][pos.col] = 10;
+	}
+	for(pos.col = 2; pos.col <= N-3; pos.col++) {
+		ValueTable[N-1][pos.col] = 10;
+	}
+
+
+Spos pos;
+	int k;
+	k = 11;
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		for(pos.col = 2; pos.col <= N-3; pos.col++) {
+			if(pos.col <= 7) {
+				ValueTable[pos.row][pos.col] = k--;
+			} else {
+				ValueTable[pos.row][pos.col] = ++k;
+			}
+		}
+		if(pos.row < 7) {
+			 k--;
+		} else if(pos.row >= 8) {
+			 ++k;
+		}
+	}
+	ValueTable[0][0] = 500;
+	ValueTable[0][N-1] = 500;
+	ValueTable[N-1][0] = 500;
+	ValueTable[N-1][N-1] = 500;
+	ValueTable[0][1] = -60;
+	ValueTable[1][0] = -60;
+	ValueTable[0][N-2] = -60;
+	ValueTable[1][N-1] = -60;
+	ValueTable[N-2][0] = -60;
+	ValueTable[N-1][1] = -60;
+	ValueTable[N-1][N-2] = -60;
+	ValueTable[N-2][N-1] = -60;
+	ValueTable[1][1] = -500;
+	ValueTable[1][N-2] = -500;
+	ValueTable[N-2][1] = -500;
+	ValueTable[N-2][N-2] = -500;
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		ValueTable[pos.row][1] = -10;
+	}
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		ValueTable[pos.row][N-2] = -10;
+	}
+	for(pos.col = 2; pos.col <= N-3; pos.col++) {
+		ValueTable[1][pos.col] = -10;
+	}
+	for(pos.col = 2; pos.col <= N-3; pos.col++) {
+		ValueTable[N-2][pos.col] = -10;
+	}
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		ValueTable[pos.row][0] = 50;
+	}
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		ValueTable[pos.row][N-1] = 50;
+	}
+	for(pos.col = 2; pos.col <= N-3; pos.col++) {
+		ValueTable[0][pos.col] = 50;
+	}
+	for(pos.col = 2; pos.col <= N-3; pos.col++) {
+		ValueTable[N-1][pos.col] = 50;
+	}
+
+
+
+
+Spos pos;
+	int k;
+	k = 11;
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		for(pos.col = 2; pos.col <= N-3; pos.col++) {
+			ValueTable[pos.row][pos.col] = 1;
+		}
+	}
+	ValueTable[0][0] = 200;
+	ValueTable[0][N-1] = 200;
+	ValueTable[N-1][0] = 200;
+	ValueTable[N-1][N-1] = 200;
+	ValueTable[0][1] = -60;
+	ValueTable[1][0] = -60;
+	ValueTable[0][N-2] = -60;
+	ValueTable[1][N-1] = -60;
+	ValueTable[N-2][0] = -60;
+	ValueTable[N-1][1] = -60;
+	ValueTable[N-1][N-2] = -60;
+	ValueTable[N-2][N-1] = -60;
+	ValueTable[1][1] = -200;
+	ValueTable[1][N-2] = -200;
+	ValueTable[N-2][1] = -200;
+	ValueTable[N-2][N-2] = -200;
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		ValueTable[pos.row][1] = -5;
+	}
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		ValueTable[pos.row][N-2] = -5;
+	}
+	for(pos.col = 2; pos.col <= N-3; pos.col++) {
+		ValueTable[1][pos.col] = -5;
+	}
+	for(pos.col = 2; pos.col <= N-3; pos.col++) {
+		ValueTable[N-2][pos.col] = -5;
+	}
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		ValueTable[pos.row][0] = 20;
+	}
+	for(pos.row = 2; pos.row <= N-3; pos.row++) {
+		ValueTable[pos.row][N-1] = 20;
+	}
+	for(pos.col = 2; pos.col <= N-3; pos.col++) {
+		ValueTable[0][pos.col] = 20;
+	}
+	for(pos.col = 2; pos.col <= N-3; pos.col++) {
+		ValueTable[N-1][pos.col] = 20;
+	}
+	ValueTable[1][2] = 10;
+	ValueTable[2][1] = 10;
+	ValueTable[N-2][N-3] = 10;
+	ValueTable[N-3][N-2] = 10;
+	ValueTable[1][N-3] = 10;
+	ValueTable[2][N-2] = 10;
+	ValueTable[N-2][2] = 10;
+	ValueTable[N-3][1] = 10;
+	ValueTable[2][2] = 10;
+	ValueTable[2][N-3] = 10;
+	ValueTable[N-3][2] = 10;
+	ValueTable[N-3][N-3] = 10;
+
+
++ 2 * Mobility(mine) - 200 * Stabilizer(oppo);
+//	if(k == 0) return -AbSearch(-INF,INF,another,depth - 1);

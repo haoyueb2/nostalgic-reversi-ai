@@ -1,0 +1,37 @@
+int AbSearch(int alpha,int beta,int side,int depth) { 
+	Spos canMove[16 * 16],pos;
+	int k,i,value,maxValue;
+	int sign[3],another;
+	k = 0;
+	sign[mine] = 1;
+	sign[oppo] = -1;
+	another = (side == 1 ? 2 : 1);
+	if(depth <= 0) {
+		return sign[side] * Evaluate(mine);
+	}
+	for(pos.row = 0; pos.row < N; pos.row++) {
+		for(pos.col = 0; pos.col < N; pos.col++) {
+			if(IfValid(pos,side)) {
+				canMove[k++] = pos;
+			}
+		}
+	}
+	if(k == 0) return -AbSearch(-beta,-alpha,another,depth - 1);
+	maxValue = -INF;
+	for(i = 0; i < k; i++) {
+		Move(canMove[i],side,depth);
+		value = -AbSearch(-beta,-alpha,another,depth - 1);
+		UndoMove(canMove[i],side,depth);
+		if(value > alpha) {
+			if(value >= beta) {
+				return value;
+			}
+				alpha = value;
+		}
+		if(value > maxValue) {
+			maxValue = value;
+		}
+	}
+
+	return maxValue;
+}

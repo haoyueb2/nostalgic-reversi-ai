@@ -1,0 +1,41 @@
+# Build outputs
+Debug/
+Release/
+x64/
+*.obj
+*.exe
+*.dll
+*.lib
+*.exp
+*.ilk
+*.idb
+*.pdb
+*.manifest
+*.tlog/
+*.log
+*.cache
+
+# Visual Studio intermediate files
+*.pch
+*.ipch
+*.sdf
+*.opensdf
+*.opendb
+*.VC.db
+*.VC.VC.opendb
+*.suo
+*.user
+*.ncb
+*.aps
+*.vcxproj.user
+.vs/
+
+# Compiler generated data
+*.res
+*.rsp
+*.tmp
+*.bak
+
+# Other temporary files
+*.swp
+.DS_Store
