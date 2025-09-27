@@ -1,0 +1,53 @@
+
+http://www.voidcn.com/article/p-gvklipit-bey.html 、、vc版的
+https://aijunbai.github.io/publications/USTC07-Bai.pdf打印那个
+http://hzwer.com/7865.html北大那个,代码不多
+https://www.dreamwings.cn/reversi/3013.html   有点娘的网站
+http://blog.sina.com.cn/s/blog_45cb1ae50101069b.html 估值方面讲的比较好
+http://www.cnblogs.com/tuanzang/archive/2013/02/27/2935837.html  那个sb注释不是很多的系列算法
+http://bianke.cnki.net/Web/Article/DNBC201017020.html 棋类通用框架
+http://read.pudn.com/downloads165/sourcecode/game/756715/Othello_061221006/%E6%96%87%E6%A1%A3.pdf 很多类，帮助不是很大
+https://blog.buriedjet.com/my-reversi/  灰常好而且详细
+http://blog.csdn.net/nowcan 研究院,两个估值的很不错
+http://bbs.csdn.net/wap/topics/60428658 估值讨论
+https://github.com/chncwang/FoolGo  Monte Carlo局面评估 + UCT搜索
+http://blog.sina.com.cn/s/blog_53ebdba00100cpy2.html Anddrew估值
+https://wenku.baidu.com/view/502cbe63a216147917112886.html 不错的PPT
+PC游戏编程人机博弈 不错
+https://www.cnblogs.com/mumuxinfei/p/4305981.html 大致讲了一下，两篇，有讲遗传算法，第二篇很好
+（http://www.cnblogs.com/mumuxinfei/p/4382538.html）此人博文
+https://skatgame.net/mburo/ps/improve.pdf 英文pdf
+老侃和andrew是被最多人转载的
+http://www.aiexp.info/pages/yixin-cn.html五子棋顶尖ai
+http://www.docin.com/p-88946635.html 豆瓣好文档
+https://skatgame.net/mburo/ps/evalfunc.pdf evalution function
+http://www.shuyao.me/articles/2009/05/05/1472088696359.html 估值简介有照片那个
+http://www.21tx.com/dev/2005/05/12/15703.html  怎么样编制强力黑白棋3
+
+现在就基于棋格表和行动力吧
+有报告和那个编制3，vc版那个也有
+
+遗传算法强化学习模板估值看豆丁下的那个和两篇论文，还有那书
+
+
+关于计算机博弈入门，尤其是中国象棋人工智能设计，国内最好的在线资源是象棋百科全书网站（象棋巫师 - 象棋百科全书）。王小春的《PC游戏编程(人机博弈)》常作为中文入门书籍，它包含了中国象棋和五子棋的人工智能设计的较完整的教程。
+然而，上述中文资料的深度比较浅，若想进一步了解计算机博弈技术，推荐参考外文资料。国际最好的综合性在线资源是国象象棋程序设计百科全书（chessprogramming）（https://chessprogramming.wikispaces.com/Othello#Othello%20Programming-Evaluation）
+，它介绍了国际象棋人工智能设计方方面面的资源，涵盖历史、数据结构、算法、协议等各方面的详细资料。除了综合性资料之外，特别地，关于五子棋，最详细的资源总结是Kai Sun于AI EXP的文章。文章中给出了的五子棋AI的推荐阅读材料列表，优秀开源界面及AI代码列表，协议列表等等。
+
+之前参加过大学生计算机博弈锦标赛，但没有五子棋这个棋种，做的六子棋，获了一等奖，当时的参考资料主要有：
+（1）《PC游戏编程》，那里面对各种基础算法阐释地很清楚（但是注意一下书里的程序有错误）；
+（2）《对弈程序基本技术》，开局库的实现方式是参照着这个的；http://www.xqbase.com/computer/outline.htm
+（3）加了VCF，其实我觉得应该更注重VCF的思考，这是我们当时赢的关键。
+
+上面的参考书都比较老，在google scholar上查过一些论文，才是比较新的方向，要做毕设的话，肯定有英语文献的要求，当时做国内的比赛，就没有深究，但题主肯定是要看的，属于毕设调研的一部分，应该对思路有些帮助。
+
+还有当时看了很多文献，发现把计算机博弈方向的研究作为毕设的有很多，东北大学开始的比较早，可以看下开阔下思路。看到上面说的"通过人机对弈提升棋力"，我在文献中可能见过，关键词应该是“神经网络”，如果题主想表达的是一个训练、学习的过程的话，应该是这个，具体效果没有调查，因为对于当时的我来说太难了。
+
+同时，也觉得这是偏AI的方向。同为大四，不能像大牛们一样思考全面，只希望能给题主一些帮助吧。
+
+作者：Lee Lynn
+链接：https://www.zhihu.com/question/27639315/answer/38146752
+来源：知乎
+著作权归作者所有，转载请联系作者获得授权。
+
+知乎：想写一个机器学习类的五子棋，可能么？可能的话需要看什么书，参考什么，求指点 

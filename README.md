@@ -1,41 +1,41 @@
 # Reversi AI (Freshman Project, 2017)
 
-This repository preserves the first programming project I wrote when I started learning C++ back in 2017: a Reversi (a.k.a. Othello) bot that plays against a human. It keeps the original Visual Studio layout, the evaluation tweaks I experimented with, and the reference material I collected at the time. Publishing it now is mostly for nostalgia—and to document the ideas that shaped my early interest in AI.
+This repository preserves the first programming project I wrote when I started learning C++ back in 2017: a Reversi (a.k.a. Othello) bot that plays against a human. I kept the original Visual Studio projects, the heaps of experiments around evaluation heuristics, and the reference material that inspired the work. I used GitHub Copilot / Codex to tidy everything up so the project reads like a time-capsule tour of that freshman-year effort.
 
 ## Repository Layout
 
-- `ConsoleApplication1_old/`: The original contest submission. `main.cpp` holds the full search logic, and the `Text*.txt` files are the scripted inputs I used while debugging the alpha-beta search.
-- `ConsoleApplication2/`: A later refactor with clearer naming (everything uses `g_` prefixes) and additional helper functions for stability evaluation. Its `main.cpp` is the version that is easiest to read today.
-- `notes/`: Loose notes and experiment snippets (alpha-beta pruning variants, timing tests, piece-ratio experiments, debugging print templates).
-- `archive/`: A preserved copy of `original_ai.c`, the earliest standalone attempt before the Visual Studio projects.
-- `reference_materials/`: Books, papers, and other AI resources (PDFs, archives, web links) I studied while building the bot.
+- `projects/original/` — The exact contest submission I used in 2017. `main.cpp` contains the full alpha-beta search, while `sample_input_default.txt`/`sample_input_endgame.txt` reproduce the judge I/O logs I debugged against.
+- `projects/refined/` — A later cleanup with clearer naming (global variables use a `g_` prefix) and extra stability-heuristic helpers. Its `main.cpp` is the easiest codebase to read today.
+- `notes/` — Lab notebooks in text form: pruning experiments, timing tests, piece-ratio analysis, and handy `printf` templates (all converted to UTF-8).
+- `source_archive/` — `original_ai.c`, my earliest standalone C prototype before I created the Visual Studio projects.
+- `resources/` — PDFs, websites, and other reading material (plus classic engines such as Zebra) that I studied while building the bot.
 
-> The `.gitignore` filters out build artifacts (`Debug/`, executables, object files) and large Visual Studio caches (`.sdf`, `.suo`, etc.), so the repository stays lightweight.
+> `.gitignore` already filters Visual Studio artefacts (`Debug/`, executables, object files, `.sdf`, `.suo`, etc.), keeping the repository tidy.
 
 ## Contest Platform
 
-This project was originally written for the SSE 2017 “Reversi Fun” online judge. The archived platform description (rules, protocol, testing framework) lives here: <https://github.com/sse2017-reversi-fun/about>. Most of the interaction logic in `main.cpp` follows that specification.
+The bot was built for the SSE 2017 “Reversi Fun” online judge. The archived platform description—including the command protocol and testing framework—is available at <https://github.com/sse2017-reversi-fun/about>. The interaction loop in both `main.cpp` files follows that specification exactly.
 
 ## Build & Run
 
-The project was originally built on Windows with Visual Studio 2012. The solution and project files (`.sln`, `.vcxproj`) are included:
+The projects were developed on Windows with Visual Studio 2012. To rebuild the original environment:
 
-1. Open `ConsoleApplication1.sln` or either project file in Visual Studio.
-2. Choose `Release` or `Debug` and build.
-3. The resulting executable talks to the referee via the contest protocol (e.g., receive `START <side>` → respond `OK`, then alternate between `PUT`/`TURN`).
+1. Open `ReversiAI.sln` in Visual Studio.
+2. Choose `Release` or `Debug`, then build the solution.
+3. Run the produced executable; it communicates with the judge using `START`/`PUT`/`TURN` commands.
 
-You can also compile a single version directly with a modern compiler:
+You can also compile a single target with a modern compiler:
 
 ```bash
-g++ -std=c++11 ConsoleApplication2/main.cpp -o reversi
+g++ -std=c++11 projects/refined/main.cpp -o reversi
 ```
 
-> The code currently uses a 16×16 board (`N` constant). To play the standard 8×8 game you will need to adjust `N` and the initial setup.
+> The current code plays on a 16×16 board (`N` constant). For the standard 8×8 game, adjust `N` and the initial disk placement inside `main.cpp`.
 
 ## Ideas for Future Tweaks
 
-- Keep tuning the evaluation weights in `ConsoleApplication2`, or add iterative deepening for stronger search.
-- Implement an opening book or refined stability heuristics using the material stored in `reference_materials/` and the experiments under `notes/`.
-- Curate the old match logs and notes into a `docs/` folder, accompanied by a write-up about the algorithms I tried as a beginner.
+- Keep tuning the heuristic weights in `projects/refined/main.cpp`, or add iterative deepening and move ordering for stronger play.
+- Build an opening book / stability table using the documents under `resources/` and the experiments in `notes/`.
+- Curate the old match logs into a `docs/` folder and write up the algorithmic journey as a companion story.
 
 Fork it, keep it as a time capsule, or build on top of it—have fun!

@@ -122,7 +122,7 @@ for(pos.row = 2; pos.row <= N-3; pos.row++) {
 		}
 	}
 
-Ó®ÁË30¸öÈËµÄ
+èµ¢äº†30ä¸ªäººçš„
 Spos pos;
 	int k;
 	k = 11;

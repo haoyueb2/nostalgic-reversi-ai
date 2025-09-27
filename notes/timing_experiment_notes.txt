@@ -662,7 +662,7 @@ int StablizerNew(int side) {
 			g_stablizer[posTmp.row][posTmp.col] = 0;
 		}
 	}
-	//交叉点的稳定子会重复计算
+	//浜ゅ弶鐐圭殑绋冲畾瀛愪細閲嶅璁＄畻
 	for(n = 0; n <= 7; n++) {
 		for(posTmp.row = n,posTmp.col = n;posTmp.row <= N-1-n; posTmp.row++) {
 			if(g_board[posTmp.row][posTmp.col] != 0) {

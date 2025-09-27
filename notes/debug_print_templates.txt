@@ -1,7 +1,7 @@
-		printf("Éî¶È%d ÏÂÆå·½%d ¹ÀÖµ%d\n",depth,side,value);
-	printf("×î´ó¹ÀÖµ%d\n",maxValue);
-		printf("Find: Éî¶È%d ÏÂÆå·½%d ¹ÀÖµ%d ºòÑ¡ºá%d ºòÑ¡×Ý%d\n",DEPTH,side,value,canMove[i].row,canMove[i].col);
-	printf("Best: ×î´ó¹À%d ×îºÃºá%d ×îºÃ×Ý%d\n",maxValue,bestMove.row,bestMove.col);
+		printf("æ·±åº¦%d ä¸‹æ£‹æ–¹%d ä¼°å€¼%d\n",depth,side,value);
+	printf("æœ€å¤§ä¼°å€¼%d\n",maxValue);
+		printf("Find: æ·±åº¦%d ä¸‹æ£‹æ–¹%d ä¼°å€¼%d å€™é€‰æ¨ª%d å€™é€‰çºµ%d\n",DEPTH,side,value,canMove[i].row,canMove[i].col);
+	printf("Best: æœ€å¤§ä¼°%d æœ€å¥½æ¨ª%d æœ€å¥½çºµ%d\n",maxValue,bestMove.row,bestMove.col);
 value = -2 * Mobility(another) + 200 * Stabilizer(side) + 2 * Mobility(side) - 200 * Stabilizer(another);
 
 

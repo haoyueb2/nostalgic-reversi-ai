@@ -260,7 +260,7 @@ int Evaluate(int side) {
      printf("\n");
 	}
 	value = -2 * Mobility(another) + 200 * Stabilizer(side);
-	printf("Ã»ÓÐÆå¸ñ±íµÄ·ÖÊý %d\n",value);
+	printf("æ²¡æœ‰æ£‹æ ¼è¡¨çš„åˆ†æ•° %d\n",value);
 	ChangeValue(side);
 	for(pos.row = 0; pos.row < N; pos.row++) {
 		for(pos.col = 0; pos.col < N; pos.col++) {
@@ -268,7 +268,7 @@ int Evaluate(int side) {
 		}
 	}
 	
-	 printf("¶ÔÊÖÐÐ¶¯Á¦%d ×Ô¼ºÎÈ¶¨×Ó%d ·ÖÊý%d\n",Mobility(another),Stabilizer(side),value);
+	 printf("å¯¹æ‰‹è¡ŒåŠ¨åŠ›%d è‡ªå·±ç¨³å®šå­%d åˆ†æ•°%d\n",Mobility(another),Stabilizer(side),value);
 	return value;
 }
 void ChangeValue(int side) {
@@ -316,7 +316,7 @@ int AbSearch(int alpha,int beta,int side,int depth) {
 	for(i = 0; i < k; i++) {
 		Move(canMove[i],side,depth);
 		value = -AbSearch(-beta,-alpha,another,depth - 1);
-		printf("Éî¶È%d ÏÂÆå·½%d ¹ÀÖµ%d ºá×ø±ê%d ×Ý×ø±ê%d alpha%d beta%d\n",depth,side,value,canMove[i].row,canMove[i].col,alpha,beta);
+		printf("æ·±åº¦%d ä¸‹æ£‹æ–¹%d ä¼°å€¼%d æ¨ªåæ ‡%d çºµåæ ‡%d alpha%d beta%d\n",depth,side,value,canMove[i].row,canMove[i].col,alpha,beta);
 		UndoMove(canMove[i],side,depth);
 		if(value > alpha) {
 			if(value >= beta) {
@@ -327,7 +327,7 @@ int AbSearch(int alpha,int beta,int side,int depth) {
 		if(value > maxValue) {
 			maxValue = value;
 		}
-		printf("×î´ó¹ÀÖµ%d\n",maxValue);
+		printf("æœ€å¤§ä¼°å€¼%d\n",maxValue);
 	}
 
 	return maxValue;
@@ -349,14 +349,14 @@ Spos FindBestMove(int side) {
 	for(i = 0; i < k; i++) {
 		Move(canMove[i],side,DEPTH);
 		value = AbSearch(-INF,INF,another,DEPTH-1);//it used to be side
-		printf("Find: Éî¶È%d ÏÂÆå·½%d ¹ÀÖµ%d ºòÑ¡ºá%d ºòÑ¡×Ý%d\n",DEPTH,side,value,canMove[i].row,canMove[i].col);
+		printf("Find: æ·±åº¦%d ä¸‹æ£‹æ–¹%d ä¼°å€¼%d å€™é€‰æ¨ª%d å€™é€‰çºµ%d\n",DEPTH,side,value,canMove[i].row,canMove[i].col);
 		UndoMove(canMove[i],side,DEPTH);
 		if(value > maxValue) {
 			maxValue = value;
 			bestMove = canMove[i];
 		}
 	}
-	printf("Best: ×î´ó¹À%d ×îºÃºá%d ×îºÃ×Ý%d\n",maxValue,bestMove.row,bestMove.col);
+	printf("Best: æœ€å¤§ä¼°%d æœ€å¥½æ¨ª%d æœ€å¥½çºµ%d\n",maxValue,bestMove.row,bestMove.col);
 	return bestMove;
 }
 int Mobility(int side) {
